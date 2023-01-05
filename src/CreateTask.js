@@ -1,36 +1,39 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
 
 function CreateTask() {
-    const [createTask, setCreateTask] = useState("");
-  
-    const handleOnSubmit = (e)=>{
-        e.preventDefault()
-        const id = e.target.id.value;
-        const message = e.target.message.value;
-        const assigned_to = e.target.assignedto.value;
-        const assigned_name = e.target.assignedname.value;
-        const created_on = e.target.createdon.value;
-        const due_date = e.target.duedate.value;
-        const priority = e.target.priority.value;
-        const alltaskInput = {
-          id,
-          message,
-          assigned_to,
-          assigned_name,
-          created_on,
-          due_date,
-          priority,
-        };
-        fetch('https://devza.com/tests/tasks/list',
-         {
-          method: 'POST',
-          headers: { AuthToken: 'UrM4YHgb1FcqEf1tuKwmAMMX5MxFZ12a' },
-          body: JSON.stringify(alltaskInput)
-        })
-          .then((res) => res.json())
-          .then((data) => console.log(data));
-    }
-    
+  const [createTask, setCreateTask] = useState('');
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    const date = new Date();
+    const message = e.target.message.value;
+    const due_date = date;
+    const assigned_name = e.target.assigned_name.value;
+
+    const formdata = new FormData();
+    formdata.append('message', message);
+    formdata.append('due_date', due_date);
+    formdata.append('priority', '2');
+    formdata.append('assigned_to', '1');
+    formdata.append('assigned_name', assigned_name);
+
+    fetch('https://devza.com/tests/tasks/create', {
+      method: 'POST',
+      headers: { AuthToken: 'UrM4YHgb1FcqEf1tuKwmAMMX5MxFZ12a' },
+      body: formdata,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === 'success') {
+          toast.success('New Task Assigned Success');
+          e.target.reset();
+        } else {
+          toast.error(data.message);
+        }
+      });
+  };
+
   return (
     <div>
       <div>
@@ -39,17 +42,6 @@ function CreateTask() {
             <div className="hero-content flex-col lg:flex-row-reverse">
               <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                 <div className="card-body">
-                  <div className="form-control">
-                    <label className="label">
-                      <span className="label-text">Id</span>
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="ID"
-                      name="id"
-                      className="input input-bordered"
-                    />
-                  </div>
                   <div className="form-control">
                     <label className="label">
                       <span className="label-text">Message</span>
@@ -78,8 +70,8 @@ function CreateTask() {
                     </label>
                     <input
                       type="text"
-                      name="assignedname"
-                      placeholder="assigned_name"
+                      name="assigned_name"
+                      placeholder="Assigned name"
                       className="input input-bordered"
                     />
                   </div>
@@ -99,7 +91,7 @@ function CreateTask() {
                       <span className="label-text">due_date</span>
                     </label>
                     <input
-                      type="text"
+                      type="number"
                       placeholder="due_date"
                       name="duedate"
                       className="input input-bordered"
@@ -110,7 +102,7 @@ function CreateTask() {
                       <span className="label-text">priority</span>
                     </label>
                     <input
-                      type="text"
+                      type="number"
                       name="priority"
                       placeholder="priority"
                       className="input input-bordered"
@@ -129,4 +121,4 @@ function CreateTask() {
   );
 }
 
-export default CreateTask
+export default CreateTask;
