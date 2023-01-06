@@ -38,10 +38,11 @@ function Task() {
       <input
         type="text"
         name=""
-        placeholder="search..."
+        placeholder="Search..."
+        className="w-50 mt-10 border p-5 text-2xl shadow-lg"
         onChange={(e) => setassigned_name(e.target.value)}
       />
-      <div className="grid grid-cols-3 gap-5 ml-10">
+      <div className="grid mt-5 grid-cols-3 gap-5 ml-10">
         {task?.tasks
           ?.filter((value) => {
             if (assigned_name === '') {
