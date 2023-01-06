@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 function Task() {
   const [refech, setFetch] = useState();
   const [task, setTask] = useState('');
+  const [assigned_name, setassigned_name] = useState("");
   useEffect(() => {
     fetch('https://devza.com/tests/tasks/list', {
       method: 'GET',
@@ -33,33 +34,51 @@ function Task() {
   return (
     <div>
       <h1 className="text-3xl font-bold">Task</h1>
+      <input
+        type="text"
+        name=""
+        placeholder="search..."
+        onChange={(e) => setassigned_name(e.target.value)}
+      />
       <div className="grid grid-cols-3 gap-5 ml-10">
-        {task?.tasks?.map((task, index) => {
-          return (
-            <div key={index} className="card w-96 bg-base-100 shadow-xl ">
-              <div className="card-body">
-                <h1>{task.id}</h1>
-                <h2 className="card-title">{task.message}</h2>
-                <p>{TextTrackList.assigned_to}</p>
-                <p>{task.assigned_name}</p>
-                <p>{task.created_on} </p>
-                <p>{task.due_date} </p>
-                <p>{task.priority} </p>
-                <div className="card-actions justify-between">
-                  <button
-                    className="btn btn-error"
-                    onClick={() => deleteTask(task.id)}
-                  >
-                    Delete
-                  </button>
-                  <Link to={`/task/${task.id}`} className="btn btn-primary">
-                    Edit
-                  </Link>
+        {task?.tasks
+          ?.filter((value) => {
+            if (assigned_name === '') {
+              return value;
+            } else if (
+              value.assigned_name
+                .toLowerCase()
+                .includes(assigned_name.toLowerCase())
+            ) {
+              return value;
+            }
+          })
+          .map((task, index) => {
+            return (
+              <div key={index} className="card w-96 bg-base-100 shadow-xl ">
+                <div className="card-body">
+                  <h1>{task.id}</h1>
+                  <h2 className="card-title">{task.message}</h2>
+                  <p>{TextTrackList.assigned_to}</p>
+                  <p>{task.assigned_name}</p>
+                  <p>{task.created_on} </p>
+                  <p>{task.due_date} </p>
+                  <p>{task.priority} </p>
+                  <div className="card-actions justify-between">
+                    <button
+                      className="btn btn-error"
+                      onClick={() => deleteTask(task.id)}
+                    >
+                      Delete
+                    </button>
+                    <Link to={`/task/${task.id}`} className="btn btn-primary">
+                      Edit
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
       </div>
     </div>
   );
