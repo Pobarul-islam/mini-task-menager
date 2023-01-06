@@ -37,6 +37,7 @@ function CreateTask() {
   return (
     <div>
       <div>
+        <h1 className='text-2xl font-bold'>Create Task</h1>
         <div className="">
           <form onSubmit={handleOnSubmit}>
             <div className="hero-content flex-col lg:flex-row-reverse">
