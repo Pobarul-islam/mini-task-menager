@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
+
 
 function UsersList() {
-
+const [name, setName] = useState("")
+console.log(name)
   
     const [user, setUser] = useState("");
     useEffect(()=>{
@@ -13,14 +14,27 @@ function UsersList() {
           .then((res) => res.json())
           .then((data) => setUser(data));
     },[])
-
+   
   return (
     <div className="overflow-x-auto">
-     
+      <input
+        type="text"
+        name=""
+        placeholder="search..."
+        onChange={(e) => setName(e.target.value)}
+      />
 
       {/* User List  */}
       <div className="grid grid-cols-3 gap-5 ml-10 mt-10">
-        {user?.users?.map((user) => {
+        {user?.users?.filter((value)=>{
+          if(name === ''){
+            return value;
+          }else if(
+            value.name.toLowerCase().includes(name.toLocaleLowerCase())
+          ){
+            return value;
+          }
+        }).map((user) => {
           return (
             <div className="card w-96 bg-base-100 shadow-xl">
               <figure>
