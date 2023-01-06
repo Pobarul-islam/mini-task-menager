@@ -1,26 +1,26 @@
-import React from 'react'
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 function Navbar() {
-       const menuItems = (
-         <>
-           <li>
-             {' '}
-             <Link to="/">User</Link>
-           </li>
+  // Navbar menu item
+  const menuItems = (
+    <>
+      <li>
+        {' '}
+        <Link to="/">User</Link>
+      </li>
 
-           <li>
-             {' '}
-             <Link to="/task">Task</Link>
-           </li>
-           <li>
-             {' '}
-             <Link to="/createtask">Create Task</Link>
-           </li>
-         
-         </>
-       );
-   
+      <li>
+        {' '}
+        <Link to="/task">Task</Link>
+      </li>
+      <li>
+        {' '}
+        <Link to="/createtask">Create Task</Link>
+      </li>
+    </>
+  );
+
   return (
     <div className="navbar bg-slate-900 text-white font-bold">
       <div className="navbar-start">
@@ -45,25 +45,18 @@ function Navbar() {
             tabIndex={0}
             className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
           >
-       
-            <li tabIndex={0}>
-          
-             {menuItems}
-            </li>
-            
+            <li tabIndex={0}>{menuItems}</li>
           </ul>
         </div>
-        <a className="btn btn-ghost normal-case text-xl font-bold">Mini Task Menager</a>
+        <a className="btn btn-ghost normal-case text-xl font-bold">
+          Mini Task Menager
+        </a>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-         {menuItems}
-        
-        </ul>
+        <ul className="menu menu-horizontal px-1">{menuItems}</ul>
       </div>
-    
     </div>
   );
 }
 
-export default Navbar
+export default Navbar;

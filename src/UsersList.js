@@ -1,20 +1,19 @@
-import React, { useEffect, useState } from 'react'
-
+import React, { useEffect, useState } from 'react';
 
 function UsersList() {
-const [name, setName] = useState("")
-console.log(name)
-  
-    const [user, setUser] = useState("");
-    useEffect(()=>{
-        fetch('https://devza.com/tests/tasks/listusers', {
-          method: 'GET',
-          headers: { AuthToken: 'UrM4YHgb1FcqEf1tuKwmAMMX5MxFZ12a' },
-        })
-          .then((res) => res.json())
-          .then((data) => setUser(data));
-    },[])
-   
+  const [name, setName] = useState('');
+  console.log(name);
+
+  const [user, setUser] = useState('');
+  useEffect(() => {
+    fetch('https://devza.com/tests/tasks/listusers', {
+      method: 'GET',
+      headers: { AuthToken: 'UrM4YHgb1FcqEf1tuKwmAMMX5MxFZ12a' },
+    })
+      .then((res) => res.json())
+      .then((data) => setUser(data));
+  }, []);
+
   return (
     <div className="overflow-x-auto">
       <div>
@@ -57,4 +56,4 @@ console.log(name)
   );
 }
 
-export default UsersList
+export default UsersList;
