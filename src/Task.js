@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 function Task() {
   const [refech, setFetch] = useState();
   const [task, setTask] = useState('');
-  const [assigned_name, setassigned_name] = useState("");
+  const [assigned_name, setassigned_name] = useState('');
   useEffect(() => {
     fetch('https://devza.com/tests/tasks/list', {
       method: 'GET',
@@ -31,6 +31,7 @@ function Task() {
         }
       });
   };
+
   return (
     <div>
       <h1 className="text-3xl font-bold">Task</h1>
@@ -50,7 +51,7 @@ function Task() {
             } else if (
               value.assigned_name
                 .toLowerCase()
-                .includes(assigned_name.toLowerCase())
+                .includes(assigned_name.toLocaleLowerCase())
             ) {
               return value;
             }
